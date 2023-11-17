@@ -1,0 +1,66 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.gameboard {
+    display: grid;
+    width: 99vw;
+    height: 55vh;
+    grid-template-columns: 100px 100px 100px;
+    justify-content: center;
+    align-content: end;
+}
+
+.square {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    border: black solid 2px;
+    font-size: 5rem;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.button-container {
+    display: flex;
+    height: 90vh;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+.start-button {
+    border: black 2px solid;
+    border-radius: 15px;
+    width: 500px;
+    height: 100px;
+    background-color: white;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+/* Game Board Borders */
+.square:first-child,
+.square:nth-child(2),
+.square:nth-child(3) {
+    border-top: none;
+}
+
+.square:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.square:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.square:last-child,
+.square:nth-child(7),
+.square:nth-child(8) {
+    border-bottom: none;
+}
