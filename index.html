@@ -23,15 +23,23 @@
     <div class="cell" id="7"></div>
     <div class="cell" id="8"></div>
 </div>
-<div class="button-container">
 
-    <button class="start-button">Start</button>
+<div class="button-container">
     
-    <dialog>
+    <div class="player-container">
+        Player X:<input type="text" id="player-one">
+        Player O:<input type="text" id="player-two">
+    </div>
+    
+    <button class="start-button">Start</button>
+</div>
+
+<dialog class="game-dialog">
+    <div class="dialog-container">
         <div class="game-status"></div>
         <button class="restart-button">Restart</button>
-    </dialog>
-</div>
+    </div>
+</dialog>
 
 </body>
 </html>

@@ -21,7 +21,9 @@ const gameboard = (function (){
 
 
 const game = (function () {
-
+    
+    let playerOne = document.querySelector('#player-one');
+    let playerTwo = document.querySelector('#player-two');
     let currentPlayer = "x";
     const winConditions = [
         [0, 1, 2],
@@ -38,11 +40,14 @@ const game = (function () {
     const startButton = document.querySelector('.start-button');        //grabs start button
     const restartButton = document.querySelector('.restart-button');    //grabs restart button
     const gameStatus = document.querySelector('.game-status');          //grabs game status
-    const dialog = document.querySelector('dialog');                    //grabs dialog
+    const dialog = document.querySelector('.game-dialog');                    //grabs start dialog
+    const buttonContainer = document.querySelector('.button-container'); //grabs button container
+
 
     const start = () => {
         startButton.parentNode.removeChild(startButton);                //removes start button
-        
+        buttonContainer.parentNode.removeChild(buttonContainer);        //removes button container
+
         boardElements.forEach(cell => {
         cell.classList.add('square')
         })
@@ -84,22 +89,22 @@ const game = (function () {
             }
         }
         if (roundWon) {
-            console.log('win');
             gameStatus.textContent = (`${currentPlayer} won!`)
             dialog.showModal();
         } else if (!gameboard.getGameBoard().includes('')){
             gameStatus.textContent = (`Draw!`)
+            dialog.showModal()
         }
     }
 
     const restart = () => {
         gameboard.clear();
         boardElements.forEach(cell => cell.textContent = "");
-        dialog.close();
         currentPlayer = "x"
         boardElements.forEach(cell => {
             cell.addEventListener('click', handleClick, {once: true})       //adds event listener again
         })
+        dialog.close();
     }
 
     //event listeners
@@ -111,3 +116,4 @@ return {
 }
 
 })();
+
