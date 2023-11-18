@@ -5,16 +5,17 @@ const gameboard = (function (){
     const getGameBoard = () => gameboard;                   //safely get gameboard
 
     const update = (cellIndex, currentPlayer) => {          //updates gameboard
-        if (getRunning() = true) {
         gameboard[cellIndex] = currentPlayer;
-        } else {
-            gameboard = ["", "", "", "", "", "", "", "", ""]
-        }
+    }
+
+    const clear = () => {
+        gameboard = ["", "", "", "", "", "", "", "", ""]
     }
 
     return {
         update,
         getGameBoard,
+        clear,
     }
 })();
 
@@ -22,8 +23,6 @@ const gameboard = (function (){
 const game = (function () {
 
     let currentPlayer = "x";
-    let running = false;
-    const getRunning = () => running;
     const winConditions = [
         [0, 1, 2],
         [3, 4, 5],
@@ -37,9 +36,11 @@ const game = (function () {
     const boardElements = document.querySelectorAll('.cell');           //grabs cells
     const boardContainer = document.querySelector('.cell-container');   //grabs cell container
     const startButton = document.querySelector('.start-button');        //grabs start button
+    const restartButton = document.querySelector('.restart-button');    //grabs restart button
+    const gameStatus = document.querySelector('.game-status');          //grabs game status
+    const dialog = document.querySelector('dialog');                    //grabs dialog
 
     const start = () => {
-        running = true;
         startButton.parentNode.removeChild(startButton);                //removes start button
         
         boardElements.forEach(cell => {
@@ -57,8 +58,8 @@ const game = (function () {
         const cellIndex = parseInt(event.target.id);
         cell.textContent = currentPlayer;
         gameboard.update(cellIndex, currentPlayer);
-        playerTurn();
         checkWin();
+        playerTurn();
     }
 
     const playerTurn = () => {                                          //switches player turn
@@ -84,24 +85,29 @@ const game = (function () {
         }
         if (roundWon) {
             console.log('win');
-            running = false
+            gameStatus.textContent = (`${currentPlayer} won!`)
+            dialog.showModal();
         } else if (!gameboard.getGameBoard().includes('')){
-            console.log('draw')
-            running = false
+            gameStatus.textContent = (`Draw!`)
         }
     }
 
     const restart = () => {
-        gameboard.update()
+        gameboard.clear();
         boardElements.forEach(cell => cell.textContent = "");
+        dialog.close();
+        currentPlayer = "x"
+        boardElements.forEach(cell => {
+            cell.addEventListener('click', handleClick, {once: true})       //adds event listener again
+        })
     }
+
     //event listeners
     startButton.addEventListener('click', start)                         //start button event listener
     restartButton.addEventListener('click', restart)                    //restart button event listener
 
 return {
     handleClick,
-    getRunning,
 }
 
 })();
