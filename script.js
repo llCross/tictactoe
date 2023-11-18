@@ -24,6 +24,7 @@ const game = (function () {
     
     let playerOne = document.querySelector('#player-one');
     let playerTwo = document.querySelector('#player-two');
+
     let currentPlayer = "x";
     const winConditions = [
         [0, 1, 2],
@@ -88,13 +89,19 @@ const game = (function () {
                 break;
             }
         }
-        if (roundWon) {
+        if (roundWon && currentPlayer === 'x' &&  playerOne.value != '') {
+            gameStatus.textContent = (`${playerOne.value} won!`)
+            dialog.showModal();
+        } else if (roundWon && currentPlayer === 'o' && playerTwo.value != '') {
+            gameStatus.textContent = (`${playerTwo.value} won!`)
+            dialog.showModal();
+        } else if (roundWon) {
             gameStatus.textContent = (`${currentPlayer} won!`)
             dialog.showModal();
         } else if (!gameboard.getGameBoard().includes('')){
             gameStatus.textContent = (`Draw!`)
-            dialog.showModal()
-        }
+            dialog.showModal();
+        } 
     }
 
     const restart = () => {
